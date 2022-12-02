@@ -12,3 +12,6 @@ app.use("/home", home);
 // connection
 const port = process.env.PORT || 9001;
 app.listen(port, () => console.log(`Listening to port ${port}`));
+
+//updated iwth this url
+//https://backend-sensitive-images-hd1z5q6ax-jdawsonimgix.vercel.app/home
