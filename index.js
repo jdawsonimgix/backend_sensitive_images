@@ -57,6 +57,36 @@ app.post("/uploadToImgix", upload.single("pic"), async (req, res) => {
 });
 
 //Get sensitive data status:
+app.post("/imgixSensitiveData", async (req, res) => {
+  console.log("Checking imgix status in /checkImgixSessionStatus");
+  const nameOfImage = req.body.theValue;
+
+  var config = {
+    method: "get",
+    url:
+      `https://api.imgix.com/api/v1/assets/62e31fcb03d7afea23063596` +
+      nameOfImage,
+    headers: {
+      Authorization: "Bearer " + process.env.IMGIX_API,
+      "Content-Type": "application/json",
+      "Accept-Encoding": "application/json",
+    },
+  };
+
+  let result = await axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data.data.attributes.warning_adult));
+      return response.data.data.attributes.warning_adult;
+    })
+    .catch(function (error) {
+      console.log(error);
+      return error;
+    });
+  let number = result.toString();
+  return res.status(200).send(number);
+});
+
+//Just to test if an imgix axios call will even work:
 app.get("/testimgix", async (req, res) => {
   console.log("ran /testimgix");
   var config = {
