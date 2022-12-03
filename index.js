@@ -34,6 +34,7 @@ app.post("/uploadToImgix", upload.single("pic"), async (req, res) => {
     headers: {
       Authorization: "Bearer " + process.env.IMGIX_API,
       "Content-Type": file.mimetype,
+      "Accept-Encoding": "application/json",
     },
     data: req.file.buffer,
   };
